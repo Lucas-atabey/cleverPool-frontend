@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import CreatePoll from './pages/CreatePoll';
 import PollDetails from './pages/PollDetails';
 import Login from './pages/Login';  // à créer
+import EditPoll from './pages/EditPoll'; // ✅ import de la nouvelle page
 
 function Header({ isAdminLoggedIn, setIsAdminLoggedIn }) {
   const navigate = useNavigate();
@@ -45,19 +46,15 @@ function Header({ isAdminLoggedIn, setIsAdminLoggedIn }) {
   );
 }
 
-// Composant qui protège la route /create
-function PrivateRoute({ isAdminLoggedIn, children }) {
-  if (!isAdminLoggedIn) {
-    // Redirige vers la page login si pas connecté
-    return <Navigate to="/login" replace />;
-  }
-  return children;
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('admin_token');
+  return token ? children : <Navigate to="/login" replace />;
 }
+
 
 export default function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  // Exemple simple : vérifier un token dans localStorage au montage
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     setIsAdminLoggedIn(!!token);
@@ -71,8 +68,16 @@ export default function App() {
         <Route
           path="/create"
           element={
-            <PrivateRoute isAdminLoggedIn={isAdminLoggedIn}>
+            <PrivateRoute>
               <CreatePoll setIsAdminLoggedIn={setIsAdminLoggedIn} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit/:pollId"
+          element={
+            <PrivateRoute>
+              <EditPoll setIsAdminLoggedIn={setIsAdminLoggedIn} />
             </PrivateRoute>
           }
         />

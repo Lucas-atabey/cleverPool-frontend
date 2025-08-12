@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Redis peut t’apporter :
+
+Cas d’usage	Intérêt principal
+Anti-spam vote	✅ sécurité / anti-triche
+Cache des sondages/questions	✅ performances
+Résultats live (websocket)	✅ UX temps réel
+Stats temporaires	✅ monitoring & analyse
+Sessions utilisateur	✅ architecture scalable
+
+System de connection admin fait, il faut adapter le front pour qu'après la connexion je sois redirigié vers la home Page qui m'affiche les sondages 

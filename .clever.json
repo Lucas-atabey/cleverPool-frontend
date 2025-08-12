@@ -1,12 +1,12 @@
 {
   "apps": [
     {
-      "app_id": "app_43185a78-847c-46bd-be3a-78b2b682783b",
+      "app_id": "app_5f4c83b0-7061-473b-8193-e2a10d1842f5",
       "org_id": "orga_a1768e1c-5ce1-4e58-b899-48aa67ff0d82",
-      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_43185a78-847c-46bd-be3a-78b2b682783b.git",
-      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_43185a78-847c-46bd-be3a-78b2b682783b.git",
-      "name": "cleverPoll-frontend",
-      "alias": "cleverpoll-frontend"
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_5f4c83b0-7061-473b-8193-e2a10d1842f5.git",
+      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_5f4c83b0-7061-473b-8193-e2a10d1842f5.git",
+      "name": "tf-cleverPoll-frontend",
+      "alias": "tf-cleverPoll-frontend"
     }
   ]
 }

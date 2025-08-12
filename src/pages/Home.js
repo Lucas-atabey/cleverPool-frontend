@@ -7,14 +7,12 @@ export default function Home({ setIsAdminLoggedIn }) {
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);  // ← nouvel état pour savoir si admin
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchPolls();
-
-    // Vérifier si admin_token est dans localStorage au chargement
     const token = localStorage.getItem('admin_token');
     setIsAdmin(!!token);
   }, []);
@@ -41,17 +39,13 @@ export default function Home({ setIsAdminLoggedIn }) {
 
       const res = await fetch(`${API_URL}/polls/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
 
-
       if (res.status === 401) {
-        // Token invalide ou expiré : on supprime token et redirige
         localStorage.removeItem('admin_token');
         setIsAdminLoggedIn(false);
-        setIsAdmin(false);  // ← mettre à jour l'état admin
+        setIsAdmin(false);
         alert('Session expirée, veuillez vous reconnecter.');
         window.location.replace('/');
         return;
@@ -75,9 +69,11 @@ export default function Home({ setIsAdminLoggedIn }) {
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1 className="mb-0">Liste des sondages</h1>
-        <button className="btn btn-primary" onClick={() => navigate('/create')}>
-          Créer un sondage
-        </button>
+        {isAdmin && (
+          <button className="btn btn-primary" onClick={() => navigate('/create')}>
+            Créer un sondage
+          </button>
+        )}
       </div>
 
       {message && (
@@ -93,10 +89,22 @@ export default function Home({ setIsAdminLoggedIn }) {
               <h5><Link to={`/poll/${poll.id}`}>{poll.title}</Link></h5>
               <p className="mb-0">{poll.description}</p>
             </div>
+
             {isAdmin && (
-              <button onClick={() => deletePoll(poll.id)} className="btn btn-sm btn-danger">
-                Supprimer
-              </button>
+              <div className="d-flex gap-2">
+                <button
+                  onClick={() => window.location.replace(`/edit/${poll.id}`)}
+                  className="btn btn-sm btn-warning"
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={() => deletePoll(poll.id)}
+                  className="btn btn-sm btn-danger"
+                >
+                  Supprimer
+                </button>
+              </div>
             )}
           </li>
         ))}
